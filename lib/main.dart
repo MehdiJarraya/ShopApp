@@ -17,6 +17,14 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider.value(
+          // we can use  ChangeNotifierProvider.value( value: Products() =>  if Products() d'ont depend on context
+          //  ChangeNotifierProvider(builder : (ctx)=> Product() => if Products() depend on context
+          // the second way using builder way can cause bugs with item beyond the screen when recycling widget :( provider can't keep up with changes
+
+          // Note that
+          // When creating new instance provide it's recommanded to use => ChangeNotifierProvider( create : Products() )
+          // when using existing object like in product_gridpage use => ChangeNotifierProvider.value(value: products[i],
+          //  ChangeNotifierProvider.value(value: products[i], clean previous data when exiting the page ;)
           value: Products(),
         ),
         ChangeNotifierProvider.value(

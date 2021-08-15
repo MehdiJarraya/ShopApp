@@ -9,6 +9,8 @@ class ProductDetailScreen extends StatelessWidget {
 
   // ProductDetailScreen(this.title, this.price);
   static const routeName = '/product-detail';
+  // we could get id from navigation parms and then getById to get details
+  // final productId= ModalRoute.of(context).settings.arguments as String;
 
   @override
   Widget build(BuildContext context) {
@@ -16,6 +18,10 @@ class ProductDetailScreen extends StatelessWidget {
         ModalRoute.of(context).settings.arguments as String; // is the id!
     final loadedProduct = Provider.of<Products>(
       context,
+      // listen is defaultly true
+      // when set to false => this widget will not rebuild when Products provider change
+      // this is useFull when we access provider data only once
+      // in our case we acess only findById methods that never change in  Products provider
       listen: false,
     ).findById(productId);
     return Scaffold(

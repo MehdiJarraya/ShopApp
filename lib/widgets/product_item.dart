@@ -19,6 +19,7 @@ class ProductItem extends StatelessWidget {
     return ClipRRect(
       borderRadius: BorderRadius.circular(10),
       child: GridTile(
+        // GestureDetector( child to make anythying tappable
         child: GestureDetector(
           onTap: () {
             Navigator.of(context).pushNamed(
@@ -33,16 +34,22 @@ class ProductItem extends StatelessWidget {
         ),
         footer: GridTileBar(
           backgroundColor: Colors.black87,
+          // unstead of Provider.of<ProviderName> use  Consumer<ProviderName>
+          // when we want only a subpart of the widget to rerender when provider changes ;)
+          // Consumer to shrink the are that should rerender ;)
+          // with CORDINTION of listen: false above it is a good optimization of preformance
+          //  we can also seperate Icon in new widget unstead of using consumer optimization
           leading: Consumer<Product>(
+            // _ third argument is child that never change in the consumer block
             builder: (ctx, product, _) => IconButton(
-                  icon: Icon(
-                    product.isFavorite ? Icons.favorite : Icons.favorite_border,
-                  ),
-                  color: Theme.of(context).accentColor,
-                  onPressed: () {
-                    product.toggleFavoriteStatus();
-                  },
-                ),
+              icon: Icon(
+                product.isFavorite ? Icons.favorite : Icons.favorite_border,
+              ),
+              color: Theme.of(context).accentColor,
+              onPressed: () {
+                product.toggleFavoriteStatus();
+              },
+            ),
           ),
           title: Text(
             product.title,

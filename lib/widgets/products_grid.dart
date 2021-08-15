@@ -17,14 +17,22 @@ class ProductsGrid extends StatelessWidget {
       padding: const EdgeInsets.all(10.0),
       itemCount: products.length,
       itemBuilder: (ctx, i) => ChangeNotifierProvider.value(
-            // builder: (c) => products[i],
-            value: products[i],
-            child: ProductItem(
-                // products[i].id,
-                // products[i].title,
-                // products[i].imageUrl,
-                ),
-          ),
+        // builder: (c) => products[i],
+        // we intialized  MULTIPLE Product providersss here (which is products[i])
+        // unstead of definning in main like other provider
+        //  because we are mapping <Products> items provider here
+
+        // Mehdi Conclusion:
+        // we are here value and child !!! not like main file( only value)
+        //=> SO child is responsible for affecting Product Provider data to ProductItem widget
+        value: products[i],
+        child: ProductItem(
+            // We can now acces product details through <Product> provider and not constractors
+            // products[i].id,
+            // products[i].title,
+            // products[i].imageUrl,
+            ),
+      ),
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
         childAspectRatio: 3 / 2,
